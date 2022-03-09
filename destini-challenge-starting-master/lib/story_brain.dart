@@ -1,5 +1,4 @@
 
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 
@@ -40,9 +39,6 @@ class StoryBrain {
         choice2: ''),
   ];
 
-
-//TODO: Step 23 - Use the storyNumber property inside getStory(), getChoice1() and getChoice2() so that it gets the updated story and choices rather than always just the first (0th) one.
-
     String getStory(){
       return _storyData[_storyNumber].storyTitle;
     }
@@ -52,28 +48,40 @@ class StoryBrain {
   String getChoice2(){
     return _storyData[_storyNumber].choice2;
   }
-
   restart(){
-      _storyNumber = 0;
+    _storyNumber = 0;
   }
 
-  nextStory(int choiceNumber){
-      if (choiceNumber == 1){
-        _storyNumber = 2;
-      }
-      else if (choiceNumber == 2){
-        _storyNumber = 1;
-      }
-      else if (_storyNumber == 3 || _storyNumber == 4 || _storyNumber == 5){
-        restart();
-      }
+  nextStory(int choiceNumber) {
+    if (choiceNumber == 1 && _storyNumber == 0) {
+      _storyNumber = 2;
+    }
+    else if (choiceNumber == 2 && _storyNumber == 0) {
+      _storyNumber = 1;
+    }
+    else if(choiceNumber == 1 && _storyNumber == 1){
+      _storyNumber = 2;
+    }
+    else if(choiceNumber == 2 && _storyNumber == 1){
+      _storyNumber = 3;
+    }
+    else if (choiceNumber == 1 && _storyNumber == 2){
+      _storyNumber = 5;
+    }
+    else if (choiceNumber == 2 && _storyNumber == 2){
+      _storyNumber = 4;
+    }
+    else if (_storyNumber == 3 || _storyNumber == 4 || _storyNumber == 5) {
+      print('This is $_storyNumber check it out');
+      restart();
+    }
+
+  }
       bool buttonShouldBeVisible(){
         if(_storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2 ){
           return true;
         }
-        return false;
+        return true;
       }
 
   }
-  
-}
